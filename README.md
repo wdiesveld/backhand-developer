@@ -1,5 +1,7 @@
 # Backhand Developer
-Machine Learning applied on ATP Tennis Data
+_Machine Learning applied on ATP Tennis Data_
+
+![alt text][logo]
 
 This repo contains some scripts which apply ML on ATP Tennis Data. For a full description of the experiments see
 https://backhand.querytechnology.net
@@ -16,3 +18,5 @@ python pressureRatingPro.py
 ```
 
 The output files will be put in `output/pressure`
+
+[logo]: https://backhand.querytechnology.net/images/backhand-developer-logo.png "Logo Backhand Developer"
