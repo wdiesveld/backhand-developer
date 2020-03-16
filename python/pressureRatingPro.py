@@ -154,7 +154,7 @@ for key in W.keys():
     print(key + ": " + str(W[key]))
 
 playersServing = readPlayerData(serveDataFile)
-playersTitles = parseTitles('../data/titles/atptour-titles-career.html')
+playersTitles = parseTitles('../data/titles/atptour-titles-career.html.download')
 
 addServingStats(players, playersServing)
 dimHighestCorr,sign = determineSourceCorrelatingWithServing(players)
