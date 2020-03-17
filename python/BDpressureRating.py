@@ -1,6 +1,6 @@
 """
 
-    Script to calculate Pressure Rating Pro (TM)
+    Script to calculate Backhand Developer Pressure Rating (TM)
 
     @author Wouter Diesveld
 

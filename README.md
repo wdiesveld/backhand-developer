@@ -8,13 +8,13 @@ https://backhand.querytechnology.net
 
 The scripts are written in Python 3.7 and should run in the default Anaconda3 environment.
 
-## Under Pressure Rating BD
+## Backhand Developer Pressure Rating&trade;
 
-To generate the weights for the weighted under pressure rating just do
+To generate the weights for the weighted under pressure rating do
 
 ```
 cd python
-python pressureRatingPro.py
+python BDpressureRating.py
 ```
 
 The output files will be put in `output/pressure`
