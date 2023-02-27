@@ -32,7 +32,7 @@ def fetchRankingDataForDate(ranking_date):
 def fetchRankingDataPerYear(year):
     print("Fetching data from ultimatetennisstatistics.com")
     print("Fetching year " + str(year))
-    for d in allMondays(year):
+    for d in allMondays(int(year)):
         fetchRankingDataForDate(str(d))
 
 
