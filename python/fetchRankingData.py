@@ -40,9 +40,14 @@ nArgs = len(sys.argv)
 if nArgs == 1:
     print("usage:")
     print(sys.argv[0] + " --year 2021")
+    print(sys.argv[0] + " --year 2020-2022")
     print(sys.argv[0] + " --date 2020-01-06")
 elif sys.argv[1] == "--year":
-    fetchRankingDataPerYear(sys.argv[2])
+    years = sys.argv[2].split('-')
+    min = int(years[0])
+    max = int(years[-1])
+    for y in range(min, max):
+        fetchRankingDataPerYear(y)
 elif sys.argv[1] == "--date":
     fetchRankingDataForDate(sys.argv[2])
 else:
