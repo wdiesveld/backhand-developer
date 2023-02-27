@@ -7,12 +7,12 @@ put file://C:\projects\backhand-developer\data\rankings\rankings-{{ ranking_date
 {% endset %}
 
 {% set query2 %}
-DELETE FROM dev.rankings_raw WHERE date = '{{ ranking_date }}'
+DELETE FROM {{ source('dev', 'rankings_raw') }} WHERE date = '{{ ranking_date }}'
 {% endset %}
 
 {% set query3 %}
 INSERT INTO
-    dev.rankings_raw (date, rankings)
+    {{ source('dev', 'rankings_raw') }} (date, rankings)
         SELECT
             '{{ ranking_date }}',
             $1
