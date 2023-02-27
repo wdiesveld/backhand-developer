@@ -44,7 +44,7 @@ if nArgs == 1:
 elif sys.argv[1] == "--year":
     years = sys.argv[2].split('-')
     min = int(years[0])
-    max = int(years[-1])
+    max = int(years[-1])+1
     for y in range(min, max):
         fetchRankingDataPerYear(y)
 elif sys.argv[1] == "--date":
