@@ -27,7 +27,6 @@ def fetchRankingDataForDate(ranking_date):
         with open(outfilename, 'w') as outfile:
             outfile.write(infile.read().decode('utf-8'))
     subprocess.run(["dbt", "run-operation", "load_ranking_raw",  "--args", "{ranking_date: \""+ranking_date+"\"}", "--project-dir", "../dbt"])
-    time.sleep(2)
 
 def fetchRankingDataPerYear(year):
     print("Fetching data from ultimatetennisstatistics.com")
