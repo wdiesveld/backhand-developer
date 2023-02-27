@@ -7,6 +7,10 @@ put file://C:\projects\backhand-developer\data\rankings\rankings-{{ ranking_date
 {% endset %}
 
 {% set query2 %}
+DELETE FROM dev.rankings_raw WHERE date = '{{ ranking_date }}'
+{% endset %}
+
+{% set query3 %}
 INSERT INTO
     dev.rankings_raw (date, rankings)
         SELECT
@@ -18,6 +22,7 @@ INSERT INTO
 
 {% do run_query(query1) %}
 {% do run_query(query2) %}
+{% do run_query(query3) %}
 
 {{ log(msg="Finished loading ranking data", info=True) }}
 
