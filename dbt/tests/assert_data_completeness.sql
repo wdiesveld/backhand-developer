@@ -1,3 +1,10 @@
+{{
+    config(
+        warn_if=">0",
+        error_if=">100"
+    )
+}}
+
 WITH
 
 dates as (
