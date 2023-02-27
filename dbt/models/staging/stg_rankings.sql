@@ -1,3 +1,9 @@
+{{
+    config(
+        materialized="incremental"
+    )
+}}
+
 WITH
 
 rankings_raw AS (
@@ -14,6 +20,10 @@ final AS (
     FROM
         rankings_raw r
         JOIN LATERAL flatten(r.rankings:rows) r2
+{% if is_incremental() %}
+    WHERE
+        r.date > (SELECT MAX(ranking_date) FROM {{ this }})
+{% endif %}
 )
 
 SELECT * FROM final
