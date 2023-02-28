@@ -1,9 +1,9 @@
-from urllib import request
-import time
 from datetime import date, timedelta
 from pathlib import Path
 import subprocess
 import sys
+import requests
+import json
 
 def allMondays(year):
    d = date(year, 1, 1)
@@ -23,9 +23,9 @@ def fetchRankingDataForDate(ranking_date):
     else:
         dateReversed = day + '-' + month + '-' + year
         link = "https://www.ultimatetennisstatistics.com/rankingsTableTable?current=1&rowCount=-1&sort%5Brank%5D=asc&searchPhrase=&rankType=RANK&season=" + year + "&date=" + dateReversed
-        infile = request.urlopen(link)
+        result = requests.get(link)
         with open(outfilename, 'w') as outfile:
-            outfile.write(infile.read().decode('utf-8'))
+            outfile.write(json.dumps(result.json()))
     subprocess.run(["dbt", "run-operation", "load_ranking_raw",  "--args", "{ranking_date: \""+ranking_date+"\"}", "--project-dir", "../dbt"])
 
 def fetchRankingDataPerYear(year):
