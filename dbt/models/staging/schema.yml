@@ -1,5 +1,20 @@
 version: 2
 
+sources:
+  - name: dev
+    database: backhand_developer
+    schema: dev
+    tables:
+      - name: rankings_raw
+        columns:
+          - name: date 
+            tests:
+              - not_null
+              - unique
+          - name: rankings
+            tests: 
+              - not_null
+
 models:
   - name: stg_rankings
     columns:
