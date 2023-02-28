@@ -18,6 +18,6 @@
 
     {% set result = run_query(fix_query) %}
 
-    {{ log(result, info=True) }}
+    {{ log("Number of updated rows: " ~ result.rows[0][0], info=True) }}
 
 {% endmacro %}
