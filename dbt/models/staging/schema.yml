@@ -6,9 +6,18 @@ models:
     - name: player_name
       tests: 
         - not_null
+    - name: player_id
+      tests:
+        - not_null
+        - relationships:
+            to: ref('stg_players')
+            field: player_id
   - name: stg_players
     columns:
     - name: player_id
       tests:
         - not_null
         - unique
+        - relationships:
+            to: ref('stg_rankings')
+            field: player_id
