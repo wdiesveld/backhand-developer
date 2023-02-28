@@ -9,7 +9,15 @@
                 r.rankings
             FROM
                 {{ ref('missing_ranking_dates') }} AS m
-                JOIN {{ source('dev', 'rankings_raw') }} AS r ON m.date_week = DATEADD(day, 7, r.date)
+                JOIN {{ source('dev', 'rankings_raw') }} AS r ON r.date = (
+                    SELECT 
+                    	MAX(r2.date)
+                     FROM 
+                     	dev.rankings_raw as r2
+                     WHERE
+                     	r2.date < m.date_week
+                        AND r2.rankings:total::int > 0
+                )
         ) AS S ON 
             T.date = S.date
         WHEN MATCHED THEN
