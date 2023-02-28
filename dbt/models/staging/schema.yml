@@ -27,6 +27,10 @@ models:
         - relationships:
             to: ref('stg_players')
             field: player_id
+    - name: player_rank
+      tests:
+        - not_null
+        - assert_greater_than_zero
   - name: stg_players
     columns:
     - name: player_id
