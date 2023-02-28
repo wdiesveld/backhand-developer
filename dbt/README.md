@@ -1,15 +1,13 @@
-Welcome to your new dbt project!
+# Backhand Developer DBT project
 
-### Using the starter project
+### Build from scratch
 
-Try running the following commands:
-- dbt run
-- dbt test
+- Fetch ATP ranking data using python script ../python/fetchRankingData.py
+- `dbt deps`
+- `dbt run-operation fix_missing_ranking_dates`
+- `dbt build`
 
+### Update data
 
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [chat](https://community.getdbt.com/) on Slack for live discussions and support
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+- First fetch new data, then
+- `dbt build`
