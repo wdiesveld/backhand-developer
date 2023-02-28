@@ -1,3 +1,8 @@
+{#
+
+Checks if a column is greater than zero
+
+#}
 {% test assert_greater_than_zero(model, column_name) %}
 
 SELECT * FROM {{ model }} WHERE {{ column_name }} <= 0

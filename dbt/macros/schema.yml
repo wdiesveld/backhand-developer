@@ -1,0 +1,12 @@
+version: 2
+
+macros:
+  - name: fix_missing_ranking_dates
+    description: Adds records to the rankings_raw table to fix the gaps in ranking dates
+    arguments: []
+  - name: load_ranking_raw
+    description: Uploads local JSON files to the database into the table rankings_raw
+    arguments:
+      - name: ranking_date
+        type: string
+        description: the date of the ranking file in format YYYY-MM-DD

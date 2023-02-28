@@ -12,11 +12,13 @@ sources:
               - not_null
               - unique
           - name: rankings
+            description: JSON blob coming from external api
             tests: 
               - not_null
 
 models:
   - name: stg_rankings
+    description: Main table to select ranking data from
     columns:
     - name: player_name
       tests: 
@@ -32,6 +34,7 @@ models:
         - not_null
         - assert_greater_than_zero
   - name: stg_players
+    description: Contains all tennis players found in ranking data
     columns:
     - name: player_id
       tests:
