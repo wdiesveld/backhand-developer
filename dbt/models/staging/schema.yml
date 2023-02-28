@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: stg_rankings
+    columns:
+    - name: player_name
+      tests: 
+        - not_null
+  - name: stg_players
+    columns:
+    - name: player_id
+      tests:
+        - not_null
+        - unique
