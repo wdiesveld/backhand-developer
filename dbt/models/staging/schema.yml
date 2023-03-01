@@ -7,6 +7,7 @@ sources:
     loader: python script
     tables:
       - name: rankings_raw
+        description: "{{ doc('source_rankings_raw') }}"
         loaded_at_field: CAST(date as TIMESTAMP)
         freshness:
           warn_after:
