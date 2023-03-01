@@ -4,6 +4,7 @@ sources:
   - name: dev
     database: backhand_developer
     schema: dev
+    loader: python script
     tables:
       - name: rankings_raw
         loaded_at_field: CAST(date as TIMESTAMP)
