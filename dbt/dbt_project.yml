@@ -25,7 +25,7 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "dbt_packages"
 
 vars:
-  start_date: '2012-01-02'
+  start_date: '2000-01-03'
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
