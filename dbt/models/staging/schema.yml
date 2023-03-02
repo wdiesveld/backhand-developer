@@ -6,6 +6,10 @@ models:
     config:
       tags: weekly
     columns:
+    - name: id
+      tests:
+        - not_null
+        - unique
     - name: player_name
       tests: 
         - not_null

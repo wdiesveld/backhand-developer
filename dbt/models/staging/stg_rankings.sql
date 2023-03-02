@@ -1,6 +1,7 @@
 {{
     config(
-        materialized="incremental"
+        materialized="incremental",
+        unique_key="id"
     )
 }}
 
@@ -12,6 +13,7 @@ rankings_raw AS (
 
 final AS (
     SELECT
+        r.date || '-' || r2.value:playerId::string as id,
         r.date AS ranking_date,
         r2.value:playerId::int as player_id,
         r2.value:name::varchar as player_name,
