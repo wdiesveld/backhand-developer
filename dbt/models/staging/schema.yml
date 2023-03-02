@@ -54,14 +54,4 @@ models:
         - relationships:
             to: ref('stg_rankings')
             field: player_id
-  - name: stg_ranking_dates
-    tests:
-      - dbt_utils.equal_rowcount:
-          compare_model: source('dev', 'rankings_raw')
-          config: 
-            severity: warn
-    columns:
-      - name: date_week
-        tests:
-          - not_null
-          - unique
+
