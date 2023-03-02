@@ -39,3 +39,5 @@ models:
   backhand_developer:
     staging:
       +materialized: view
+
+on-run-start: "{{ fix_missing_ranking_dates() }}"
