@@ -1,0 +1,24 @@
+version: 2
+
+sources:
+  - name: dev
+    database: backhand_developer
+    schema: dev
+    loader: python script
+    tables:
+      - name: rankings_raw
+        description: "{{ doc('source_rankings_raw') }}"
+        loaded_at_field: CAST(date as TIMESTAMP)
+        freshness:
+          warn_after:
+            count: 7
+            period: day
+        columns:
+          - name: date 
+            tests:
+              - not_null
+              - unique
+          - name: rankings
+            description: JSON blob coming from external api
+            tests: 
+              - not_null
