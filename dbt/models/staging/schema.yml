@@ -17,22 +17,11 @@ models:
       tests:
         - not_null
         - relationships:
-            to: ref('stg_players')
+            to: ref('int_players')
             field: player_id
     - name: player_rank
       tests:
         - not_null
         - assert_greater_than_zero
-  - name: stg_players
-    description: Contains all tennis players found in ranking data
-    config:
-      tags: weekly
-    columns:
-    - name: player_id
-      tests:
-        - not_null
-        - unique
-        - relationships:
-            to: ref('stg_rankings')
-            field: player_id
+
 

@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: int_players
+    description: Contains all tennis players found in ranking data
+    config:
+      tags: weekly
+    columns:
+    - name: player_id
+      tests:
+        - not_null
+        - unique
+        - relationships:
+            to: ref('stg_rankings')
+            field: player_id
