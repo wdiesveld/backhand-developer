@@ -26,6 +26,8 @@ sources:
 models:
   - name: stg_rankings
     description: Main table to select ranking data from
+    config:
+      tags: weekly
     columns:
     - name: player_name
       tests: 
@@ -42,6 +44,8 @@ models:
         - assert_greater_than_zero
   - name: stg_players
     description: Contains all tennis players found in ranking data
+    config:
+      tags: weekly
     columns:
     - name: player_id
       tests:
