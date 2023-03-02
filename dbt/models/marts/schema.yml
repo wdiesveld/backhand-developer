@@ -1,0 +1,16 @@
+version: 2
+
+exposures:
+  - name: ranking_streamgraph
+    label: ATP ranking streamgraph
+    type: dashboard
+    maturity: low
+    url: https://backhand.querytechnology.net
+    description: >
+      Work in progress...
+    depends_on:
+      - ref('stg_rankings')
+      - ref('agg_weeks_at_number_one')
+    owner:
+      name: Wouter Diesveld
+      email: wouter@tinyqueries.com
