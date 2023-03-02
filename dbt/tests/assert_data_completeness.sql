@@ -1,7 +1,9 @@
 {{
     config(
         warn_if=">0",
-        error_if=">100"
+        error_if=">100",
+        store_failures=True,
+        schema="failed_tests"
     )
 }}
 
