@@ -7,7 +7,7 @@
 WITH
 
 dates AS (
-    SELECT * FROM {{ ref('stg_ranking_dates') }}
+    SELECT * FROM {{ ref('utl_ranking_dates') }}
 ),
 
 rankings AS (
