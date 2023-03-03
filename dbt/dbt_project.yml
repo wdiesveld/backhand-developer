@@ -37,6 +37,7 @@ vars:
 # files using the `{{ config(...) }}` macro.
 models:
   backhand_developer:
+    +required_tests: {"unique.*|not_null": 1}
     staging:
       +materialized: view
 
