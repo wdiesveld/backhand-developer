@@ -11,5 +11,5 @@ models:
         - not_null
         - unique
         - relationships:
-            to: ref('stg_rankings')
+            to: ref('int_rankings')
             field: player_id
