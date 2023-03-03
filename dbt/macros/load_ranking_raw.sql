@@ -1,9 +1,9 @@
 {% macro load_ranking_raw(ranking_date) %}
 
-{{ log(msg="Loading ranking data from " ~ ranking_date, info=True) }}
+{{ log(msg="Uploading ranking data from " ~ ranking_date, info=True) }}
 
 {% set query1 %}
-put file://C:\projects\backhand-developer\data\rankings\rankings-{{ ranking_date }}.json @BACKHAND_DEVELOPER.DEV.RANKING_STAGE;
+PUT file://C:\projects\backhand-developer\data\rankings\rankings-{{ ranking_date }}.json @BACKHAND_DEVELOPER.DEV.RANKING_STAGE OVERWRITE=TRUE;
 {% endset %}
 
 {% set query2 %}
@@ -21,6 +21,9 @@ INSERT INTO
 {% endset %}
 
 {% do run_query(query1) %}
+
+{{ log(msg="Loading data into rankings_raw", info=True) }}
+
 {% do run_query(query2) %}
 {% do run_query(query3) %}
 
