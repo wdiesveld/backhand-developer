@@ -1,7 +1,7 @@
 WITH
 
 rankings AS (
-    SELECT * FROM {{ ref('stg_rankings') }}
+    SELECT * FROM {{ ref('int_rankings') }}
 ),
 
 final AS (

@@ -9,7 +9,7 @@ exposures:
     description: >
       Work in progress...
     depends_on:
-      - ref('stg_rankings')
+      - ref('int_rankings')
       - ref('agg_weeks_at_number_one')
     owner:
       name: Wouter Diesveld
