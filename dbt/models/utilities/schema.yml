@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: utl_ranking_dates
+  - name: ranking_dates
     tests:
       - dbt_utils.equal_rowcount:
           compare_model: source('dev', 'rankings_raw')
