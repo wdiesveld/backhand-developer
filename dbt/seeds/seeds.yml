@@ -1,0 +1,9 @@
+version: 2
+
+seeds: 
+  - name: ranking_dates_omitted
+    config: 
+      quote_columns: false
+      column_types:
+        ranking_date_omit: date
+        reason: varchar(255)
