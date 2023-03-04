@@ -9,8 +9,7 @@ exposures:
     description: >
       Work in progress...
     depends_on:
-      - ref('int_rankings')
-      - ref('agg_weeks_at_number_one')
+      - ref('input_streamgraph')
     owner:
       name: Wouter Diesveld
       email: wouter@tinyqueries.com
