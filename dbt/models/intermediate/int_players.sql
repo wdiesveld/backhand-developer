@@ -8,6 +8,7 @@ final AS (
     SELECT
         player_id,
         player_name,
+        MIN(player_rank) as player_rank_max,
         MIN(ranking_date) as first_ranking,
         MAX(ranking_date) as last_ranking
     FROM
