@@ -23,5 +23,9 @@ models:
       tests:
         - not_null
         - assert_greater_than_zero
+    - name: player_points
+      tests:
+        - not_null
+        - assert_greater_than_zero
 
 
