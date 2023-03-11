@@ -19,7 +19,14 @@ final AS (
         r2.value:name::varchar as player_name,
         r2.value:rank::int as player_rank,
         r2.value:bestRank::int as player_best_rank,
-        r2.value:points::double as player_points
+        -- make up player points for period before 1990
+        CASE WHEN
+            r.date < '1990-01-01' AND r2.value:points::double = 0
+        THEN
+            1 / r2.value:rank::int
+        ELSE
+            r2.value:points::double
+        END AS player_points
     FROM
         rankings_raw r
         JOIN LATERAL flatten(r.rankings:rows) r2
