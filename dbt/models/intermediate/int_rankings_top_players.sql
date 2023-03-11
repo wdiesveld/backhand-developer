@@ -10,7 +10,7 @@ final AS (
     FROM
         rankings
     WHERE
-        player_best_rank <= 10
+        player_best_rank <= 3
 )
 
 SELECT * FROM final
