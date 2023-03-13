@@ -11,11 +11,11 @@ USING (
         JOIN {{ source('dev', 'rankings_raw') }} AS r ON r.date = (
             SELECT 
                 MAX(r2.date)
-                FROM 
+            FROM 
                 dev.rankings_raw as r2
-                WHERE
-                r2.date < m.date_week
-                AND r2.rankings:total::int > 0
+            WHERE
+                r2.date < m.date_week AND
+                r2.rankings:total::int > 0
         )
 ) AS S ON 
     T.date = S.date
