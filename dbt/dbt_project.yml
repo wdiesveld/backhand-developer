@@ -20,7 +20,8 @@ clean-targets:
   - "dbt_packages"
 
 vars:
-  start_date: '1990-01-01'
+  # date should be a Monday
+  start_date: '1968-01-01'
 
 models:
   backhand_developer:
