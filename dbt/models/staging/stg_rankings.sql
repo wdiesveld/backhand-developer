@@ -11,7 +11,7 @@ rankings_raw AS (
     SELECT * FROM {{ source('dev', 'rankings_raw') }}
 ),
 
-semi_final AS (
+final AS (
     SELECT
         r.date || '-' || r2.value:playerId::string as id,
         r.date AS ranking_date,
@@ -34,26 +34,6 @@ semi_final AS (
     WHERE
         r.date > (SELECT MAX(ranking_date) FROM {{ this }})
 {% endif %}
-),
-
-final AS (
-    SELECT
-        id,
-        ranking_date,
-        player_id,
-        player_name,
-        player_rank,
-        player_best_rank,
-        -- fix for player_points being 0 because of inactive ranking weeks
-        CASE WHEN
-            player_points = 0
-        THEN
-            LAG(player_points, 1) OVER (PARTITION BY player_id ORDER BY ranking_date)
-        ELSE
-            player_points
-        END AS player_points
-    FROM
-        semi_final
 )
 
 SELECT * FROM final

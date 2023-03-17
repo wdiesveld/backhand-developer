@@ -15,7 +15,8 @@ USING (
                 dev.rankings_raw as r2
             WHERE
                 r2.date < m.date_week AND
-                r2.rankings:total::int > 0
+                r2.rankings:total::int > 0 AND
+                (r2.date < '1990-01-01' OR r2.rankings:rows[0]:points::int != 0)
         )
 ) AS S ON 
     T.date = S.date

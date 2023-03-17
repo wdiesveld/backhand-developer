@@ -16,12 +16,15 @@ rankings AS (
 
 final AS (
     SELECT
-        dates.*
+        dates.date_week
     FROM
         dates
         LEFT JOIN rankings ON dates.date_week = rankings.ranking_date
     WHERE
-        rankings.player_id IS NULL
+        rankings.player_id IS NULL OR
+        (rankings.ranking_date >= '1990-01-01' AND rankings.player_points = 0 AND rankings.player_rank = 1)
+    ORDER BY
+        1
 )
 
 SELECT * from final
