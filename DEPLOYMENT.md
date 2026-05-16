@@ -56,19 +56,6 @@ The project includes a GitHub Actions workflow (`.github/workflows/deploy.yml`) 
 
 2. Push `dist/` folder to your GitHub Pages repository
 
-## Custom Domain
-
-If using `backhand.querytechnology.net`:
-
-1. **DNS Configuration** (at your domain registrar):
-   - Add CNAME record pointing to your GitHub Pages domain
-   
-2. **GitHub Pages Settings:**
-   - Custom domain: `backhand.querytechnology.net`
-   - Enable "Enforce HTTPS"
-
-The workflow automatically creates a CNAME file in the deployed site.
-
 ## Project Structure
 
 ```

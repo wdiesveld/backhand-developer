@@ -7,7 +7,7 @@ var maxV = 0;
 function loadData(uri, callback)
 {
     $.getJSON(
-        '/backhand.querytechnology.net/data/'+ uri + '.json',
+        '/backhand-developer/data/'+ uri + '.json',
         callback
     );
 }

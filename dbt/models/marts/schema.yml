@@ -4,10 +4,7 @@ exposures:
   - name: ranking_streamgraph
     label: ATP ranking streamgraph
     type: dashboard
-    maturity: low
-    url: https://backhand.querytechnology.net
-    description: >
-      Work in progress...
+    maturity: medium
     depends_on:
       - ref('input_streamgraph')
     owner:
