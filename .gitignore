@@ -133,3 +133,11 @@ dev/
 output/pressure/*.json
 
 data/rankings
+
+node_modules/
+dist/
+.DS_Store
+*.swp
+*.swo
+*~
+.vscode/settings.json

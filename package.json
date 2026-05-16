@@ -1,0 +1,17 @@
+{
+  "name": "backhand-query-technology",
+  "version": "1.0.0",
+  "description": "Tennis analytics site - static version",
+  "main": "index.js",
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "eleventy",
+    "start": "npm run dev"
+  },
+  "keywords": ["tennis", "analytics", "rankings", "pressure-rating"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

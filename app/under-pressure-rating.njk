@@ -1,0 +1,210 @@
+---
+layout: base.njk
+permalink: /under-pressure-rating/index.html
+---
+
+<div class="container px-3 py-3">
+    <img style="max-width: 100%" src="images/cover-under-pressure.png" />
+    <div class="photo-credits">Photo from <a href="https://www.youtube.com/watch?v=KIC6VwKB-mc">Some Under Pressure Video</a></div>
+    <div class="date">March 17, 2020</div>
+    <h2>Under Pressure Rating<sup>&copy;</sup></h2>
+    <!-- <h2>Backend Down The Line: Taking a look at the <em>Under Pressure Rating<sup>&copy;</sup></em></h2> -->
+    <p>
+        In tennis - like in many sports - the ability to handle pressure is a key factor.
+        At <a href="https://atptour.com">atptour.com</a> they have created the 
+        <a href="https://www.atptour.com/en/stats/leaderboard?boardType=pressure&timeFrame=Career&surface=all&versusRank=all&formerNo1=false">Under Pressure Rating<sup>&copy;</sup></a>
+        to express how well tennis players can handle pressure. 
+        This rating is defined as the sum of the percentages of 
+        <em>Break Points Converted</em>,
+        <em>Break Points Saved</em>,
+        <em>Tie Breaks Won</em>
+        and <em>Deciding Set Won</em>.
+        Currently Novak Djokovic is the all time leader of this rating.
+        He has a score of 247.8 which is the sum of the percentages for each of the four measures: 44.4% + 65.4% + 64.5% + 73.5%.
+    </p>
+    <p>
+        To me - speaking as a Backhand Developer - this way of calculating seems a bit arbitrary. 
+        Of course each of those four measures captures the ability to handle pressure to some extend. 
+        But why should you just add them? Do they equally well represent the ability to handle pressure?
+        Besides, each measure is most likely a mix of several factors. 
+        For example <em>Deciding Set Won</em> tells something about the ability to handle 
+        pressure, but it may very well be an indicator of stamina / physical endurance as well.
+    </p>
+    <p>
+        In this article I will show how we can use a technique from Machine Learning called 
+        <a href="https://en.wikipedia.org/wiki/Independent_component_analysis">Independent Component Analysis</a> to try to improve the measure.
+        We will also see how "hidden" dimensions can be revealed from the original data.
+    </p>
+    <h4>Some observations on current rating</h4>
+    <p>
+        To show that the Under Pressure Rating<sup>&copy;</sup> might have some slight deficiencies we point out the following observations:
+        <ul>
+            <li>Kei Nishikori is ranked 5th on all time ranking. This seems a bit too high, taking into account he has never won a grand slam.</li>
+            <li>Andre Agassi is ranked 14th on all time ranking. This seems a bit too low, taking into account he was one of the few who completed the career slam</li>
+            <li>Robin Söderling is ranked 97th on all time ranking. This seems a bit too low, taking into account he was the only player in history who was able to beat Nadal on Roland Garros</li>
+            <li>John Isner is ranked higher than legends Jim Courier, John McEnroe, Ivan Lendl and Michael Chang on all time ranking.</li>
+            <li>Three japanese in top 10 of 2018 - what happened here?</li>
+            <li>Novak Djokovic is ranked fifth in 2019 behind Roger Federer, while he was able to withstand extremely high pressure during the epic Wimbledon Final 2019 and became number 1 again during that year.</li>
+        </ul>
+    </p>
+    <h4>How we will approach the problem: Demixing Data</h4>
+    <p>
+        We assume that the measures we take into account are "mixed signals". 
+        So for example the measure <em>Deciding Set Won</em> is composed of mix of several underlying factors, among which is the ability to handle pressure.
+        What we will try to do is "demix" the data to reveal the underlying factors.
+    </p>
+    <p>
+        For this we will use Independent Component Analysis (ICA). ICA works very well for demixing audio signals. 
+        Suppose there are two people speaking at the same time and suppose there are two microphones.
+        Each microphone records a combination of the voices. By applying ICA to these signals you can "reconstruct" the original two voices as separate signals.
+    </p>
+    <p>
+        For our case we have four "recorded signals":
+    </p>
+    <ul>
+        <li>Percentage of Break Points Converted (BPC)</li>
+        <li>Percentage of Break Points Saved (BPS)</li>
+        <li>Percentage of Tie Breaks Won (TBW)</li>
+        <li>Percentage of Deciding Set Won (DSW)</li>
+    </ul>
+    <p>
+        From these signals we try to derive the "sources", among we assume there is at least the ability to handle pressure.
+        We assume there are other sources as well, but we don't define them yet.
+        And, important as well: we assume that the ability to handle pressure <em>has a positive effect</em> on each of the four signals.
+        This is important, since after we apply ICA, we need to figure out somehow which of the demixed source signals corresponds to the ability to handle pressure.
+    </p>
+    <p>
+        We used Python Scikit's 
+        <a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.FastICA.html">FastICA</a> for our experiment.
+        The hyperparameter <em>n_components</em> is most important - it sets the amount of sources you want to derive from your data.
+        In this case  <em>n_components=4</em> turned out to work best and gave the most consistent results.
+        After supplying your training data you get a transformation matrix which we can use for the new measure we want to create.
+        From the matrix we picked the dimension which either only had positive or only negative scalars.
+        We did this 1000 times and averages the resulting vector.
+        Eventually we got these weights:
+    </p>
+    <blockquote class="blockquote">
+        <div>Backhand Developer Pressure Rating&trade; &nbsp; = &nbsp;</div>
+        <div class="tab">0.45 &times; BPC &nbsp; + &nbsp;</div>
+        <div class="tab">0.38 &times; BPS &nbsp; + &nbsp;</div>
+        <div class="tab">0.09 &times; TBW &nbsp; + &nbsp;</div> 
+        <div class="tab">0.09 &times; DSW</div>
+    </blockquote>
+    <p>
+        These weights suggest that <em>Break Points Converted</em> and <em>Break Points Saved</em> are most important in determining ones ability to handle pressure.
+        The other two measures <em>Tie Breaks Won</em> and <em>Deciding Set Won</em> seem to be less important.
+    </p>
+    <h4>New Rating</h4>
+    <p>
+        Below you see the new ranking if you apply the new measure. The column 'Move' is used to compare the old with the new ranking.
+    </p>
+
+    <div class="pressure-rating-pro-demo">
+        <form>
+            <div class="form-group">
+                <select id="select-for-table" class="period-selection form-control"></select>
+            </div>
+        </form>
+        <div class="tableFixHead">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ranking</th>
+                        <th>Move</th>
+                        <th>Player</th>
+                        <th>Under Pressure Rating<sup>&copy;</sup></th>
+                        <th>BD Pressure Rating&trade;</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <h4>Some observations on new rating</h4>
+    <p>
+        Compared to the observations of the old rating (see section above) we can see that all weird ratings have changed to more "reasonable" ratings:
+        <ul>
+            <li>Kei Nishikori has dropped from 5th to 14th on all time ranking.</li>
+            <li>Andre Agassi moved up from 14th to 7th on all time ranking.</li>
+            <li>Robin Söderling moved up from 97th to 30th</li>
+            <li>John Isner is now ranked lower than the legends John McEnroe, Ivan Lendl and Michael Chang except for Jim Courier.</li>
+            <li>Only Kei is in the top 10 of 2018</li>
+            <li>Novak Djokovic is ranked third in 2019 before Roger Federer.</li>
+        </ul>
+    </p>
+
+    <h4>Other Source Signals</h4>
+
+    <p>
+        As we mentioned in the section about demixing data there might be other 'source signals' present in the data as well
+        besides the ability to handle pressure.
+        From the four sources we demixed, we picked one of them as the source 'ability to handle pressure'. 
+        But what about the other three?
+        Do they respresent some tennis quality as well or are they random 'by-products'?
+    </p>
+
+    <p>
+        At least from one of the three dimensions we can say that it represents a tennis quality, namely the ability to serve well.
+        When we sorted the data based on this dimension we saw that John Isner, Ivo Karlovic and Reilly Opelka were the leaders.
+        As we know, these players are known for their height (they are all 2 meters +).
+        The fact that they can serve extremely well is probably not because they can handle pressure well, but more likely because they
+        are very tall.
+        And if players can serve well they are more likely to have a high percentage of <em>Break Points Saved</em>. 
+        This explains why John Isner was high ranked on the ATP pressure ranking.
+    </p>
+    <p>
+        Below you can see a bubble chart in which this 'serve dimension' is put on the Y axis. 
+        The new pressure rating is put in the X axis.
+        The color respresents the average aces per match (purple is a lot of aces, grey is few aces).
+        The bubble size represents the number of titles a player has.
+        You can see the three above mentioned players in the top.
+    </p>
+
+    <img style="max-width: 100%" src="/images/bubble-chart-1.png" />
+
+    <p>
+        Another demixed "source signal" seemed to correlate with players which are good in playing tiebreaks but which are not specifically good
+        in the other three stats. 
+        Among the top players of this dimension were Pat Cash and John Fitzgerald. 
+        Apparently these players are just good in playing tiebreaks for some other reason than the ability to handle pressure.
+    </p>
+    <p>
+        For the last demixed signal it was not clear how to interpret it. It could be that this is still a mixed signal. 
+        We would need more measures to unravel this further.
+    </p>
+    <p>
+        Below there is an interactive version of the plot above:
+    </p>
+    <div class="pressure-rating-pro-demo">
+        <form>
+            <div class="form-group">
+                <select id="select-for-chart" class="period-selection form-control"></select>
+            </div>
+        </form>
+        <canvas style="width: 100%; height: 600px" id="chart-pressure-rating"></canvas>
+    </div>
+
+
+    <h4>Conclusion</h4>
+    <p>
+        Using Independent Component Analysis it is possible to create a rating which seems to measure
+        the quality of being able to handle pressure better than the Under Pressure Rating<sup>&copy</sup>. 
+        We say "seems" since we cannot give hard proof of course, but the examples we showed make it reasonable
+        that we found a better "estimator" of this quality.
+    </p>
+    <p>
+        Furthermore it was interesting to see that as a "by-product" we found some other tennis qualities in the data.
+        It shows the potential of ICA and suggests it could be applied to improve other measures as well.
+    </p>
+
+    <h4>References</h4>
+    <ul>
+        <li>All data used for these experiments comes from <a href="https://atptour.com">atptour.com</a></li>
+        <li>All python scripts used for this experiment can be found on <a href="https://github.com/wdiesveld/backhand-developer">GitHub</a></li>
+        <li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.FastICA.html">Skikit Learn FastICA</a></li>
+        <li>ICA on <a href="https://en.wikipedia.org/wiki/Independent_component_analysis">Wikipedia</a></li>
+        <li>In depth article on <a href="http://mlsp.cs.cmu.edu/courses/fall2012/lectures/ICA_Hyvarinen.pdf">ICA</a></li>
+    </ul>
+
+    <script src="js/under-pressure-rating.js"></script>
+</div>
