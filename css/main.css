@@ -1,0 +1,133 @@
+body {
+    font-family: 'Roboto Slab', serif;
+}
+.photo-credits {
+    font-size: 0.7em;
+    color: #999;
+    text-align: center;
+    margin: 10px 0;
+}
+.photo-credits a {
+    color: #444;
+}
+.date {
+    color: #ccc;
+    border-bottom: 1px solid #ccc;
+    line-height: 50px;
+    margin: 25px 0;
+}
+.navbar {
+    border-bottom: 1px solid #ddd;
+}
+.navbar .hide-when-small {
+    display: none;
+}
+.navbar.navbar-large .hide-when-small {
+    display: inherit;
+}
+.navbar.navbar-large {
+     min-height: 128px;
+}
+.navbar .navbar-brand {
+    background: url(../images/backhand-developer-logo.png) no-repeat;
+    background-size: 30px 30px;
+    padding: 0 0 0 40px;
+    font-size: 18px;
+    color: #888;
+}
+.navbar .navbar-brand .title {
+    font-size: 18px;
+}
+.navbar.navbar-large .navbar-brand .title {
+    margin-top: 16px;
+    font-size: 25px;
+}
+.navbar .navbar-brand .title a {
+    text-decoration: none;
+    color: #555;
+}
+.navbar .navbar-brand .title a:hover {
+    color: #111;
+}
+.navbar.navbar-large .navbar-brand {
+    background-size: 100px 100px;
+    min-height: 100px;
+    padding: 0 0 0 114px;
+}
+footer {
+    border-top: 1px solid #ddd;
+    color: #aaa;
+    background-color: #f0f0f0;
+    padding: 80px;
+}
+footer a {
+    color: #888;
+}
+footer a:hover {
+    color: #555;
+}
+main {
+    margin-top: 140px;
+}
+#cookie-free-badge {
+    width: 80px;
+    height: 80px;
+    transform: rotate(10deg);
+    margin: 20px;
+}
+
+canvas, .tableFixHead {
+    margin-bottom: 1rem;
+}
+
+.pressure-rating-pro-demo form {
+    width: 320px;
+}
+.tableFixHead {
+    overflow-y: auto; 
+    height: 500px;
+    border: 1px solid #eee;
+}
+.tableFixHead thead th {
+    position: sticky; 
+    top: 0; 
+}
+
+table  { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 16px; }
+th     { background:#eee; }
+
+h2 {
+    margin: 40px 0;
+}
+
+.move-up {
+    background: url(../images/arrow-up.png) no-repeat 0 14px;
+    padding: 0 0 0 18px;
+}
+
+.move-down {
+    background: url(../images/arrow-down.png) no-repeat 0 14px;
+    padding: 0 0 0 18px;
+}
+
+blockquote {
+    padding: 30px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+}
+blockquote .tab {
+    padding-left: 40px;
+}
+
+@media screen and (max-width: 600px) {
+    .navbar .navbar-brand  {
+       font-size: 12px;
+    }
+}
+
+#rankings_streamgraph {
+    width: 100%;
+    height: 400px;
+    position: relative;
+}
