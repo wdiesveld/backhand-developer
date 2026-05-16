@@ -60,7 +60,7 @@ function renderStreamgraph() {
             `translate(${margin.left}, ${margin.top})`);
 
     // Parse the Data
-    d3.json('/backhand.querytechnology.net/data/rankings/rankings.json').then((dataRaw) => {
+    d3.json('/backhand-developer/data/rankings/rankings.json').then((dataRaw) => {
         const { data, keys } = convertDataToStream(dataRaw);
 
         // Add X axis
